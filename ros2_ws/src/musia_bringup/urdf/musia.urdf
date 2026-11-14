@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!--
+  MUSIA v2 — description géométrique pour TF et RViz.
+  Cotes reprises du squelette CAO (D:\work\sene-musia-cad, docs/specifications.md, 14/11/2026),
+  en mètres. Repère : X vers l'avant, Y vers la gauche, Z vers le haut.
+    axe des roues à 32,5 mm du sol (roue Ø65) ; voie 150 ; empattement 130 ;
+    plaques 205 x 117, de z = 46,75 (base) à z = 216,75 (dessus du module MUSIA) ;
+    lidar STL-19P centré en (-50 ; 0), plan de balayage à ~246 mm du sol ;
+    axe du servo de la webcam en (62 ; 0), dessus du plateau tournant à 179,75 mm ;
+    IMU sur la plaque à trous, sous le plateau du lidar (position approximative).
+  À VÉRIFIER sur le robot monté : sens du 0° du lidar, orientation de l'IMU sur sa plaque.
+-->
+<robot name="musia">
+  <material name="anthracite"><color rgba="0.2 0.2 0.22 1"/></material>
+  <material name="blanc"><color rgba="0.92 0.92 0.9 1"/></material>
+  <material name="jaune"><color rgba="0.95 0.75 0.1 1"/></material>
+
+  <link name="base_footprint"/>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.0993"/>
+      <geometry><box size="0.205 0.117 0.170"/></geometry>
+      <material name="blanc"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.0993"/>
+      <geometry><box size="0.205 0.117 0.170"/></geometry>
+    </collision>
+  </link>
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/><child link="base_link"/>
+    <origin xyz="0 0 0.0325"/>
+  </joint>
+
+  <!-- Roues (fixes pour TF : pas d'encodeur, on ne publie pas leur rotation) -->
+  <link name="roue_avant_gauche"><visual><origin rpy="1.5708 0 0"/><geometry><cylinder radius="0.0325" length="0.027"/></geometry><material name="jaune"/></visual></link>
+  <link name="roue_avant_droite"><visual><origin rpy="1.5708 0 0"/><geometry><cylinder radius="0.0325" length="0.027"/></geometry><material name="jaune"/></visual></link>
+  <link name="roue_arriere_gauche"><visual><origin rpy="1.5708 0 0"/><geometry><cylinder radius="0.0325" length="0.027"/></geometry><material name="jaune"/></visual></link>
+  <link name="roue_arriere_droite"><visual><origin rpy="1.5708 0 0"/><geometry><cylinder radius="0.0325" length="0.027"/></geometry><material name="jaune"/></visual></link>
+  <joint name="j_roue_avant_gauche" type="fixed"><parent link="base_link"/><child link="roue_avant_gauche"/><origin xyz="0.065 0.075 0"/></joint>
+  <joint name="j_roue_avant_droite" type="fixed"><parent link="base_link"/><child link="roue_avant_droite"/><origin xyz="0.065 -0.075 0"/></joint>
+  <joint name="j_roue_arriere_gauche" type="fixed"><parent link="base_link"/><child link="roue_arriere_gauche"/><origin xyz="-0.065 0.075 0"/></joint>
+  <joint name="j_roue_arriere_droite" type="fixed"><parent link="base_link"/><child link="roue_arriere_droite"/><origin xyz="-0.065 -0.075 0"/></joint>
+
+  <!-- Lidar : plan de balayage à 0,246 m du sol -->
+  <link name="base_laser">
+    <visual><origin xyz="0 0 -0.012"/><geometry><cylinder radius="0.0176" length="0.035"/></geometry><material name="anthracite"/></visual>
+  </link>
+  <joint name="j_lidar" type="fixed">
+    <parent link="base_link"/><child link="base_laser"/>
+    <origin xyz="-0.050 0 0.2135" rpy="0 0 0"/>
+  </joint>
+
+  <link name="imu_link"/>
+  <joint name="j_imu" type="fixed">
+    <parent link="base_link"/><child link="imu_link"/>
+    <origin xyz="-0.050 0 0.1795" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Tête : plateau tournant entraîné par le servo 9 g, webcam dessus -->
+  <link name="tete">
+    <visual><origin xyz="0 0 0.003"/><geometry><cylinder radius="0.030" length="0.006"/></geometry><material name="anthracite"/></visual>
+  </link>
+  <joint name="tete_pan" type="revolute">
+    <parent link="base_link"/><child link="tete"/>
+    <origin xyz="0.062 0 0.14725"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.396" upper="1.396" effort="0.2" velocity="3.0"/>
+  </joint>
+  <link name="camera_link">
+    <visual><origin xyz="-0.02 0 0"/><geometry><box size="0.04 0.09 0.03"/></geometry><material name="anthracite"/></visual>
+  </link>
+  <joint name="j_camera" type="fixed">
+    <parent link="tete"/><child link="camera_link"/>
+    <origin xyz="0.020 0 0.035"/>   <!-- objectif de la webcam : à mesurer -->
+  </joint>
+  <link name="camera_optical_frame"/>
+  <joint name="j_camera_optique" type="fixed">
+    <parent link="camera_link"/><child link="camera_optical_frame"/>
+    <origin rpy="-1.5708 0 -1.5708"/>
+  </joint>
+</robot>

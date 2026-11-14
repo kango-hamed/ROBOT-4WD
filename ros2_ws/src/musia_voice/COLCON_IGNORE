@@ -1,0 +1,3 @@
+En pause depuis le 14/11/2026 (prototype = navigation, pilotage, vision).
+Paquet incomplet : ni package.xml ni setup.py. colcon l'ignore tant que ce fichier existe.
+Les tests de la logique (synthèse, découpage des phrases, transcription) passent : python -m pytest

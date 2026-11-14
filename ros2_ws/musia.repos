@@ -1,0 +1,11 @@
+# Dépendances compilées depuis les sources (absentes des paquets apt de ROS 2 Jazzy).
+#   cd ros2_ws && vcs import src/externes < musia.repos
+repositories:
+  ldlidar_stl_ros2:
+    type: git
+    url: https://github.com/ldrobotSensorTeam/ldlidar_stl_ros2.git
+    version: master
+  rf2o_laser_odometry:
+    type: git
+    url: https://github.com/MAPIRlab/rf2o_laser_odometry.git
+    version: ros2

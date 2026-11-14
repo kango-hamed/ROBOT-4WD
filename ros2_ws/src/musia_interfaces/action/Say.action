@@ -1,0 +1,9 @@
+# Faire parler le robot. Le résultat arrive quand la phrase est finie
+# (la machine à états attend ce signal au lieu d'une durée estimée).
+string text
+string cache_key        # identifiant stable pour réutiliser une synthèse déjà faite ('' = aucun)
+---
+bool success
+float32 duration_s
+---
+float32 progress        # 0..1

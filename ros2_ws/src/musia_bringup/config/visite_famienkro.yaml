@@ -1,0 +1,63 @@
+# Visite du Musée Famienkro — reprise des textes et des positions de l'ancien code
+# (musia_params.yaml et tour_manager_node.py, branche Main de kango-hamed/musia).
+# Positions dans le repère « map » de maps/famienkro.yaml, en mètres et radians.
+# Seuls les arrêts devant les œuvres sont listés : Nav2 trouve seul le chemin entre eux
+# (les anciens points de passage WP1, WP4, WP5 et WP7 ne servaient qu'à guider le trajet).
+
+nom: Visite Famienkro — art ivoirien
+depart: {x: 0.00, y: 0.00, yaw: 0.000}        # ancien WP0, entrée principale
+
+textes:
+  accueil: >-
+    Bonjour et bienvenue au Musée Famienkro. Je suis MUSIA, votre guide.
+    Je vais vous présenter les chefs-d'œuvre de l'art ivoirien. Suivez-moi !
+  transition: "Suivez-moi, nous allons vers la {zone}."
+  invitation: "Avez-vous des questions sur cette œuvre ?"
+  sans_reponse: >-
+    Excellente question ! Je n'ai malheureusement pas cette information.
+    Le personnel du musée pourra vous renseigner.
+  navigation_impossible: "Je n'arrive pas à rejoindre la {zone}. Passons à la suite."
+  fin: >-
+    Nous arrivons à la fin de cette visite. Merci de votre présence au Musée Famienkro.
+    J'espère vous avoir fait découvrir les trésors artistiques de la Côte d'Ivoire.
+
+arrets:
+  - id: goli
+    zone: salle Baoulé
+    pose: {x: 4.20, y: 0.80, yaw: 1.571}       # ancien WP2
+    presentation: >-
+      Devant vous, le masque Goli, symbole solaire des Baoulé. Ce masque circulaire
+      représente l'astre du jour et incarne la puissance masculine de la société.
+    reponses:
+      - mots: [goli, soleil, solaire]
+        reponse: "Le masque Goli représente le soleil ; il est porté lors des grandes fêtes baoulé."
+
+  - id: kita
+    zone: salle Baoulé
+    pose: {x: 4.20, y: -0.80, yaw: -1.571}     # ancien WP3
+    presentation: >-
+      Voici un pagne Kita, tissu de prestige baoulé, tissé par les hommes
+      pour les cérémonies de la cour royale.
+
+  - id: gunye-ge
+    zone: salle Dan
+    pose: {x: 10.80, y: 0.70, yaw: 1.571}      # ancien WP6
+    presentation: >-
+      Je vous présente le Gunye Ge, masque de la beauté idéale chez les Dan.
+      Il apparaît lors des cérémonies de réconciliation et de bienvenue.
+
+  - id: kpelie
+    zone: salle Sénoufo
+    pose: {x: 15.20, y: 0.60, yaw: 1.571}      # ancien WP8
+    presentation: >-
+      Devant vous, le masque Kpelié des Sénoufo. Ce masque appartient
+      à la société initiatique du Poro.
+
+# Réponses hors ligne, si le serveur de conversation ne répond pas.
+reponses_generales:
+  - mots: [baoule, goli, kita]
+    reponse: "Les Baoulé sont un peuple akan de Côte d'Ivoire, réputés pour leur art du masque et du tissu."
+  - mots: [dan, gunye]
+    reponse: "Les Dan vivent à l'ouest de la Côte d'Ivoire. Leurs masques sont parmi les plus connus d'Afrique de l'Ouest."
+  - mots: [senoufo, kpelie, poro]
+    reponse: "Les Sénoufo vivent au nord de la Côte d'Ivoire. Le Poro est leur institution initiatique centrale."

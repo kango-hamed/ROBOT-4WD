@@ -1,0 +1,8 @@
+# Le code tourne sous Linux (Raspberry Pi) : fins de ligne LF partout, même édité sous Windows.
+* text=auto eol=lf
+# Fichiers binaires : jamais de conversion
+*.pgm binary
+*.png binary
+*.jpg binary
+*.mp3 binary
+*.wav binary

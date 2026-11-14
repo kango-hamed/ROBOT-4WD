@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>musia_base</name>
+  <version>2.0.0</version>
+  <description>Pont /cmd_vel vers la carte moteur Arduino de MUSIA</description>
+  <maintainer email="musia@example.invalid">MUSIA</maintainer>
+  <license>MIT</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>musia_interfaces</exec_depend>
+  <exec_depend>python3-serial</exec_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

@@ -1,0 +1,76 @@
+# Paramètres des nœuds MUSIA v2. Les noms correspondent EXACTEMENT aux declare_parameter
+# des nœuds (l'ancien musia_params.yaml utilisait « port » et « ultrasonic_threshold_cm »,
+# que le nœud ne lisait pas : la configuration était ignorée sans message).
+#
+# Ports série : utiliser les chemins stables /dev/serial/by-id/… (voir README, Installation).
+
+base_node:
+  ros__parameters:
+    serial_port: /dev/serial/by-id/CHANGER-arduino
+    baud_rate: 115200
+    cmd_timeout_s: 0.5
+    track_m: 0.150                # voie (CAO)
+    slip_factor: 1.5              # à étalonner (README, Étalonnage)
+    max_wheel_speed_mps: 0.50     # à étalonner
+    deadband_pwm: 70              # à étalonner
+
+head_node:
+  ros__parameters:
+    pwm_chip: 0
+    pwm_channel: 0
+    min_deg: -80.0
+    max_deg: 80.0
+    center_us: 1500.0
+    us_per_deg: 11.1
+    max_speed_dps: 90.0
+    follow_person: false          # pas encore de détecteur : la tête se commande depuis la page de pilotage
+
+camera:                           # webcam USB Axtel (v4l2_camera)
+  ros__parameters:
+    video_device: /dev/video0
+    image_size: [640, 480]        # suffisant pour piloter, léger pour le Wi-Fi
+    camera_frame_id: camera_optical_frame
+    output_encoding: rgb8
+
+imu_node:
+  ros__parameters:
+    i2c_bus: 1
+    address: 0x68
+    rate_hz: 50.0
+    frame_id: imu_link
+
+battery_node:
+  ros__parameters:
+    i2c_bus: 1
+    address: 0x40
+    shunt_ohm: 0.1
+    empty_v: 6.4
+    full_v: 8.4
+
+ldlidar:
+  ros__parameters:
+    product_name: LDLiDAR_LD19    # le STL-19P parle le protocole du LD19 (230 400 bauds) : à confirmer
+    topic_name: scan
+    frame_id: base_laser
+    port_name: /dev/serial/by-id/CHANGER-lidar
+    port_baudrate: 230400
+    laser_scan_dir: true
+    enable_angle_crop_func: false
+
+pilot_node:                       # page de pilotage (musia_pilot)
+  ros__parameters:
+    port: 8080
+    camera_port: 8081             # web_video_server
+    max_linear_mps: 0.25          # vitesse maxi au joystick (curseur à 100 %)
+    max_angular_rps: 1.5
+    points_file: ~/.config/musia/points.json
+
+tour_node:                        # EN PAUSE (visite guidée)
+  ros__parameters:
+    conversation_url: ""          # ex. http://192.168.1.10:8000 ; vide = réponses locales seulement
+    person_max_distance_m: 1.8
+    person_min_confidence: 0.5
+    listen_s: 12.0
+    answer_timeout_s: 8.0
+    nav_retries: 1
+    cooldown_s: 20.0

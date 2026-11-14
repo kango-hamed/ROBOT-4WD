@@ -1,0 +1,23 @@
+# Produits de compilation ROS 2 (ne jamais les versionner)
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+# dépendances récupérées par vcs (voir ros2_ws/musia.repos)
+ros2_ws/src/externes/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+*.egg-info/
+
+# Secrets et données de visiteurs
+.env
+*.wav
+*.mp3
+!ros2_ws/src/musia_bringup/sons/*.mp3
+
+# Éditeurs
+.vscode/
+.idea/

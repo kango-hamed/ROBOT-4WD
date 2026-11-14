@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>musia_bringup</name>
+  <version>2.0.0</version>
+  <description>Lancement de MUSIA v2 : URDF, paramètres, cartes, fichiers de visite</description>
+  <maintainer email="musia@example.invalid">MUSIA</maintainer>
+  <license>MIT</license>
+
+  <exec_depend>musia_base</exec_depend>
+  <exec_depend>musia_hardware</exec_depend>
+  <exec_depend>musia_pilot</exec_depend>
+  <exec_depend>musia_tour</exec_depend>          <!-- en pause, lancé seulement par musia.launch.py -->
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>twist_mux</exec_depend>
+  <exec_depend>web_video_server</exec_depend>
+  <exec_depend>v4l2_camera</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
+  <exec_depend>nav2_bringup</exec_depend>
+  <exec_depend>slam_toolbox</exec_depend>
+  <exec_depend>teleop_twist_keyboard</exec_depend>
+  <!-- compilés depuis les sources : voir ros2_ws/musia.repos -->
+  <exec_depend>ldlidar_stl_ros2</exec_depend>
+  <exec_depend>rf2o_laser_odometry</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

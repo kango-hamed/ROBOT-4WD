@@ -1,0 +1,9 @@
+# Commande de la visite depuis l'admin ou la ligne de commande :
+#   start : démarrer sans attendre un visiteur
+#   next  : passer à l'arrêt suivant
+#   home  : terminer et rentrer au point de départ
+#   stop  : arrêt immédiat sur place, retour en VEILLE
+string command
+---
+bool accepted
+string message

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>MUSIA — pilotage</title>
+  <link rel="stylesheet" href="pilot.css">
+</head>
+<body>
+  <header>
+    <strong>MUSIA</strong>
+    <span id="nav" class="pill">…</span>
+    <span id="battery" class="pill">batterie —</span>
+    <span id="base" class="pill">carte moteur —</span>
+    <span id="link" class="pill bad">hors ligne</span>
+  </header>
+
+  <main>
+    <section class="view">
+      <div class="map-wrap">
+        <canvas id="map"></canvas>
+        <p id="map-hint">Touchez la carte pour envoyer le robot à cet endroit.</p>
+      </div>
+      <div class="camera">
+        <img id="camera" alt="caméra">
+        <p id="camera-off" hidden>caméra indisponible</p>
+      </div>
+    </section>
+
+    <section class="controls">
+      <button id="estop" class="estop">STOP</button>
+
+      <div class="drive">
+        <div id="pad" class="pad"><div id="knob" class="knob"></div></div>
+        <label>vitesse <input id="speed" type="range" min="10" max="100" value="50"> <span id="speed-v">50 %</span></label>
+      </div>
+
+      <div class="row">
+        <button id="cancel">Annuler la destination</button>
+      </div>
+
+      <div class="panel">
+        <h2>Points</h2>
+        <ul id="points"></ul>
+        <form id="save-point" class="row">
+          <input id="point-name" placeholder="nom (A, B, accueil…)" maxlength="32" required>
+          <button type="submit">Enregistrer ici</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>Tête</h2>
+        <div class="row">
+          <input id="head" type="range" min="-80" max="80" value="0">
+          <button id="head-center">centre</button>
+        </div>
+      </div>
+      <p id="message" class="message"></p>
+    </section>
+  </main>
+  <script src="pilot.js"></script>
+</body>
+</html>
