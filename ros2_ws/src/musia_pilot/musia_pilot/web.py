@@ -70,7 +70,7 @@ class PilotServer(ThreadingHTTPServer):
         super().__init__(addr, _Handler)
         self.robot = robot
         self.points = points
-        self.static_dir = os.path.realpath(static_dir)
+        self.static_dir = os.path.abspath(static_dir)
         self.max_linear = max_linear
         self.max_angular = max_angular
         self.head_limit_deg = head_limit_deg
@@ -221,7 +221,10 @@ class _Handler(BaseHTTPRequestHandler):
 
     def _static(self, path: str) -> None:
         root = self.server.static_dir
-        full = os.path.realpath(os.path.join(root, (path.lstrip('/') or 'index.html')))
+        # abspath et non realpath : avec « colcon build --symlink-install », les fichiers
+        # installés sont des liens vers build/, hors du dossier. abspath normalise « .. »,
+        # ce qui suffit à bloquer la sortie du dossier.
+        full = os.path.abspath(os.path.join(root, (path.lstrip('/') or 'index.html')))
         if os.path.commonpath([root, full]) != root or not os.path.isfile(full):
             return self._error(HTTPStatus.NOT_FOUND, 'fichier introuvable')
         ctype = mimetypes.guess_type(full)[0] or 'application/octet-stream'
