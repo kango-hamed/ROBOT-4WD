@@ -22,8 +22,8 @@ def generate_launch_description():
     with open(os.path.join(share, 'urdf', 'musia.urdf'), encoding='utf-8') as f:
         urdf = f.read()
 
-    def part(name, **kw):
-        return Node(condition=IfCondition(LaunchConfiguration(name)), output='screen',
+    def part(switch, **kw):  # « switch » et non « name » : name= est déjà passé au Node
+        return Node(condition=IfCondition(LaunchConfiguration(switch)), output='screen',
                     parameters=[params], **kw)
 
     args = [DeclareLaunchArgument('params_file', default_value=os.path.join(share, 'config', 'robot.yaml'))]
